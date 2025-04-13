@@ -1,0 +1,12 @@
+[project]
+name = "learning-path-optimizer"
+version = "0.1.0"
+description = "Adaptive learning paths generator with constraint programming"
+readme = "README.md"
+requires-python = ">=3.12"
+dependencies = [
+    "ortools>=9.12.4544",
+]
+
+[dependency-groups]
+dev = []
