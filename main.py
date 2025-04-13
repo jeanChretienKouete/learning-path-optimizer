@@ -22,16 +22,6 @@ def extract_required_mastery_levels(lessons) -> dict[str, int]:
     }
 
 
-def extract_lessons_prerequisites(lessons: list[Lesson]) -> dict[str, dict[str, int]]:
-    return {
-        lesson.lesson_id: {
-            list(prerequisite.keys())[0]: int(list(prerequisite.values())[0] * 100)
-            for prerequisite in lesson.prerequisites
-        }
-        for lesson in lessons
-    }
-
-
 def extract_acquisition_matrices(
     activities: list[Activity], lessons: list[Lesson]
 ) -> dict[str, dict[str, int]]:
@@ -74,9 +64,8 @@ class ActivityScheduler:
         self.acquisition_matrix = extract_acquisition_matrices(activities, lessons)
         self.activity_limits = get_activity_limits(activities)
         self.lesson_coverages = get_lesson_min_coverages(lessons)
-        self.lesson_prerequisites = extract_lessons_prerequisites(lessons)
         self.timesteps = timesteps
-        self.P = self.M = self.X = self.Y = dict()
+        self.M = self.X = self.Y = dict()
 
         self.model = cp_model.CpModel()
 
@@ -103,9 +92,6 @@ class ActivityScheduler:
             for activity_id in self.activity_limits:
                 self.X[activity_id, t] = self.model.NewBoolVar(f"X[{activity_id}][{t}]")
 
-            for lesson_id in self.lesson_prerequisites:
-                self.P[lesson_id, t] = self.model.NewBoolVar(f"P[{lesson_id}][{t}]")
-
     def add_constraints(self) -> None:
         # If any activity is selected at t, then Y[t] must be 1
         for t in range(1, self.timesteps + 1):
@@ -113,42 +99,6 @@ class ActivityScheduler:
                 self.Y[t],
                 [self.X[activity_id, t] for activity_id in self.activity_limits],
             )
-
-        # If an activity contributes to lesson l, and lesson l has prerequisites,
-        # then that activity can only be selected at time t if all prerequisites are satisfied at time −1
-        for lesson_l, prerequisites in self.lesson_prerequisites.items():
-            for t in range(1, self.timesteps + 1):
-                # For each prerequisite, create satisfaction condition
-                prereq_satisfied_bools = []
-                for prereq_lesson in prerequisites:
-                    bool_var = self.model.NewBoolVar(
-                        f"satisfy_{prereq_lesson}_before_{lesson_l}_t{t}"
-                    )
-                    self.model.Add(
-                        self.M[prereq_lesson, t - 1] >= prerequisites[prereq_lesson]
-                    ).OnlyEnforceIf(bool_var)
-                    self.model.Add(
-                        self.M[prereq_lesson, t - 1] < prerequisites[prereq_lesson]
-                    ).OnlyEnforceIf(bool_var.Not())
-                    prereq_satisfied_bools.append(bool_var)
-
-                # Combine all prerequisite satisfaction into one
-                all_satisfied = self.model.NewBoolVar(
-                    f"all_prereqs_met_{lesson_l}_t{t}"
-                )
-                self.model.AddBoolAnd(prereq_satisfied_bools).OnlyEnforceIf(
-                    all_satisfied
-                )
-                self.model.AddBoolOr(
-                    [b.Not() for b in prereq_satisfied_bools]
-                ).OnlyEnforceIf(all_satisfied.Not())
-
-                # For each activity that contributes to this lesson, enforce the constraint
-                for activity_id in self.acquisition_matrix:
-                    if self.acquisition_matrix[activity_id].get(lesson_l, 0) > 0:
-                        self.model.Add(self.X[activity_id, t] == 0).OnlyEnforceIf(
-                            all_satisfied.Not()
-                        )
 
         # Each time step must have exactly one activity selected
         for t in range(1, self.timesteps + 1):
@@ -241,7 +191,7 @@ def main() -> None:
         activities = json.load(f)
         activities = [Activity(**activity) for activity in activities]
 
-    TIMESETPS = 500
+    TIMESETPS = 15
 
     scheduler = ActivityScheduler(lessons, activities, TIMESETPS)
     scheduler.solve()
