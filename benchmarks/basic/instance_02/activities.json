@@ -1,0 +1,720 @@
+[
+    {
+        "id": "Activity_001",
+        "name": "Activity 1",
+        "duration": 14,
+        "style": "reading/writing",
+        "effectiveness": {
+            "Lesson_005": 20,
+            "Lesson_003": 20
+        },
+        "difficulty": "easy",
+        "type": "reading"
+    },
+    {
+        "id": "Activity_002",
+        "name": "Activity 2",
+        "duration": 18,
+        "style": "reading/writing",
+        "effectiveness": {
+            "Lesson_004": 20
+        },
+        "difficulty": "easy",
+        "type": "reading"
+    },
+    {
+        "id": "Activity_003",
+        "name": "Activity 3",
+        "duration": 58,
+        "style": "visual",
+        "effectiveness": {
+            "Lesson_001": 20
+        },
+        "difficulty": "hard",
+        "type": "game"
+    },
+    {
+        "id": "Activity_004",
+        "name": "Activity 4",
+        "duration": 58,
+        "style": "kinesthetic",
+        "effectiveness": {
+            "Lesson_001": 20,
+            "Lesson_002": 20
+        },
+        "difficulty": "hard",
+        "type": "game"
+    },
+    {
+        "id": "Activity_005",
+        "name": "Activity 5",
+        "duration": 15,
+        "style": "kinesthetic",
+        "effectiveness": {
+            "Lesson_005": 20
+        },
+        "difficulty": "easy",
+        "type": "game"
+    },
+    {
+        "id": "Activity_006",
+        "name": "Activity 6",
+        "duration": 37,
+        "style": "kinesthetic",
+        "effectiveness": {
+            "Lesson_004": 20,
+            "Lesson_002": 20
+        },
+        "difficulty": "medium",
+        "type": "simulation"
+    },
+    {
+        "id": "Activity_007",
+        "name": "Activity 7",
+        "duration": 10,
+        "style": "auditory",
+        "effectiveness": {
+            "Lesson_005": 20
+        },
+        "difficulty": "easy",
+        "type": "discussion"
+    },
+    {
+        "id": "Activity_008",
+        "name": "Activity 8",
+        "duration": 14,
+        "style": "kinesthetic",
+        "effectiveness": {
+            "Lesson_004": 20
+        },
+        "difficulty": "easy",
+        "type": "game"
+    },
+    {
+        "id": "Activity_009",
+        "name": "Activity 9",
+        "duration": 80,
+        "style": "auditory",
+        "effectiveness": {
+            "Lesson_002": 20
+        },
+        "difficulty": "hard",
+        "type": "discussion"
+    },
+    {
+        "id": "Activity_010",
+        "name": "Activity 10",
+        "duration": 50,
+        "style": "auditory",
+        "effectiveness": {
+            "Lesson_001": 20,
+            "Lesson_003": 20
+        },
+        "difficulty": "medium",
+        "type": "video"
+    },
+    {
+        "id": "Activity_011",
+        "name": "Activity 11",
+        "duration": 12,
+        "style": "visual",
+        "effectiveness": {
+            "Lesson_004": 20
+        },
+        "difficulty": "easy",
+        "type": "project"
+    },
+    {
+        "id": "Activity_012",
+        "name": "Activity 12",
+        "duration": 45,
+        "style": "reading/writing",
+        "effectiveness": {
+            "Lesson_005": 20,
+            "Lesson_001": 20
+        },
+        "difficulty": "medium",
+        "type": "reading"
+    },
+    {
+        "id": "Activity_013",
+        "name": "Activity 13",
+        "duration": 14,
+        "style": "auditory",
+        "effectiveness": {
+            "Lesson_004": 20,
+            "Lesson_003": 20
+        },
+        "difficulty": "easy",
+        "type": "discussion"
+    },
+    {
+        "id": "Activity_014",
+        "name": "Activity 14",
+        "duration": 32,
+        "style": "auditory",
+        "effectiveness": {
+            "Lesson_001": 20,
+            "Lesson_003": 20
+        },
+        "difficulty": "medium",
+        "type": "discussion"
+    },
+    {
+        "id": "Activity_015",
+        "name": "Activity 15",
+        "duration": 14,
+        "style": "reading/writing",
+        "effectiveness": {
+            "Lesson_005": 20,
+            "Lesson_004": 20
+        },
+        "difficulty": "easy",
+        "type": "quiz"
+    },
+    {
+        "id": "Activity_016",
+        "name": "Activity 16",
+        "duration": 38,
+        "style": "kinesthetic",
+        "effectiveness": {
+            "Lesson_002": 20,
+            "Lesson_004": 20
+        },
+        "difficulty": "medium",
+        "type": "exercise"
+    },
+    {
+        "id": "Activity_017",
+        "name": "Activity 17",
+        "duration": 11,
+        "style": "kinesthetic",
+        "effectiveness": {
+            "Lesson_004": 20,
+            "Lesson_003": 20
+        },
+        "difficulty": "easy",
+        "type": "exercise"
+    },
+    {
+        "id": "Activity_018",
+        "name": "Activity 18",
+        "duration": 14,
+        "style": "reading/writing",
+        "effectiveness": {
+            "Lesson_003": 20
+        },
+        "difficulty": "easy",
+        "type": "reading"
+    },
+    {
+        "id": "Activity_019",
+        "name": "Activity 19",
+        "duration": 26,
+        "style": "reading/writing",
+        "effectiveness": {
+            "Lesson_001": 20,
+            "Lesson_003": 20
+        },
+        "difficulty": "medium",
+        "type": "quiz"
+    },
+    {
+        "id": "Activity_020",
+        "name": "Activity 20",
+        "duration": 68,
+        "style": "auditory",
+        "effectiveness": {
+            "Lesson_001": 20
+        },
+        "difficulty": "hard",
+        "type": "discussion"
+    },
+    {
+        "id": "Activity_021",
+        "name": "Activity 21",
+        "duration": 30,
+        "style": "kinesthetic",
+        "effectiveness": {
+            "Lesson_002": 20,
+            "Lesson_004": 20
+        },
+        "difficulty": "medium",
+        "type": "exercise"
+    },
+    {
+        "id": "Activity_022",
+        "name": "Activity 22",
+        "duration": 13,
+        "style": "auditory",
+        "effectiveness": {
+            "Lesson_005": 20
+        },
+        "difficulty": "easy",
+        "type": "discussion"
+    },
+    {
+        "id": "Activity_023",
+        "name": "Activity 23",
+        "duration": 15,
+        "style": "visual",
+        "effectiveness": {
+            "Lesson_003": 20
+        },
+        "difficulty": "easy",
+        "type": "simulation"
+    },
+    {
+        "id": "Activity_024",
+        "name": "Activity 24",
+        "duration": 36,
+        "style": "visual",
+        "effectiveness": {
+            "Lesson_002": 20,
+            "Lesson_004": 20
+        },
+        "difficulty": "medium",
+        "type": "project"
+    },
+    {
+        "id": "Activity_025",
+        "name": "Activity 25",
+        "duration": 44,
+        "style": "visual",
+        "effectiveness": {
+            "Lesson_002": 20,
+            "Lesson_001": 20
+        },
+        "difficulty": "hard",
+        "type": "project"
+    },
+    {
+        "id": "Activity_026",
+        "name": "Activity 26",
+        "duration": 66,
+        "style": "auditory",
+        "effectiveness": {
+            "Lesson_002": 20
+        },
+        "difficulty": "hard",
+        "type": "discussion"
+    },
+    {
+        "id": "Activity_027",
+        "name": "Activity 27",
+        "duration": 26,
+        "style": "reading/writing",
+        "effectiveness": {
+            "Lesson_005": 20,
+            "Lesson_001": 20
+        },
+        "difficulty": "medium",
+        "type": "reading"
+    },
+    {
+        "id": "Activity_028",
+        "name": "Activity 28",
+        "duration": 26,
+        "style": "visual",
+        "effectiveness": {
+            "Lesson_002": 20,
+            "Lesson_003": 20
+        },
+        "difficulty": "medium",
+        "type": "video"
+    },
+    {
+        "id": "Activity_029",
+        "name": "Activity 29",
+        "duration": 14,
+        "style": "reading/writing",
+        "effectiveness": {
+            "Lesson_004": 20
+        },
+        "difficulty": "easy",
+        "type": "quiz"
+    },
+    {
+        "id": "Activity_030",
+        "name": "Activity 30",
+        "duration": 11,
+        "style": "auditory",
+        "effectiveness": {
+            "Lesson_003": 20
+        },
+        "difficulty": "easy",
+        "type": "discussion"
+    },
+    {
+        "id": "Activity_031",
+        "name": "Activity 31",
+        "duration": 20,
+        "style": "reading/writing",
+        "effectiveness": {
+            "Lesson_004": 20
+        },
+        "difficulty": "easy",
+        "type": "reading"
+    },
+    {
+        "id": "Activity_032",
+        "name": "Activity 32",
+        "duration": 66,
+        "style": "kinesthetic",
+        "effectiveness": {
+            "Lesson_001": 20
+        },
+        "difficulty": "hard",
+        "type": "exercise"
+    },
+    {
+        "id": "Activity_033",
+        "name": "Activity 33",
+        "duration": 60,
+        "style": "kinesthetic",
+        "effectiveness": {
+            "Lesson_001": 20
+        },
+        "difficulty": "hard",
+        "type": "project"
+    },
+    {
+        "id": "Activity_034",
+        "name": "Activity 34",
+        "duration": 38,
+        "style": "auditory",
+        "effectiveness": {
+            "Lesson_002": 20,
+            "Lesson_004": 20
+        },
+        "difficulty": "medium",
+        "type": "video"
+    },
+    {
+        "id": "Activity_035",
+        "name": "Activity 35",
+        "duration": 36,
+        "style": "auditory",
+        "effectiveness": {
+            "Lesson_004": 20,
+            "Lesson_001": 20
+        },
+        "difficulty": "medium",
+        "type": "discussion"
+    },
+    {
+        "id": "Activity_036",
+        "name": "Activity 36",
+        "duration": 28,
+        "style": "reading/writing",
+        "effectiveness": {
+            "Lesson_003": 20,
+            "Lesson_001": 20
+        },
+        "difficulty": "medium",
+        "type": "reading"
+    },
+    {
+        "id": "Activity_037",
+        "name": "Activity 37",
+        "duration": 12,
+        "style": "kinesthetic",
+        "effectiveness": {
+            "Lesson_004": 20
+        },
+        "difficulty": "easy",
+        "type": "project"
+    },
+    {
+        "id": "Activity_038",
+        "name": "Activity 38",
+        "duration": 80,
+        "style": "kinesthetic",
+        "effectiveness": {
+            "Lesson_001": 20,
+            "Lesson_002": 20
+        },
+        "difficulty": "hard",
+        "type": "project"
+    },
+    {
+        "id": "Activity_039",
+        "name": "Activity 39",
+        "duration": 43,
+        "style": "visual",
+        "effectiveness": {
+            "Lesson_001": 20,
+            "Lesson_003": 20
+        },
+        "difficulty": "medium",
+        "type": "game"
+    },
+    {
+        "id": "Activity_040",
+        "name": "Activity 40",
+        "duration": 50,
+        "style": "auditory",
+        "effectiveness": {
+            "Lesson_002": 20,
+            "Lesson_005": 20
+        },
+        "difficulty": "medium",
+        "type": "discussion"
+    },
+    {
+        "id": "Activity_041",
+        "name": "Activity 41",
+        "duration": 60,
+        "style": "kinesthetic",
+        "effectiveness": {
+            "Lesson_002": 20
+        },
+        "difficulty": "hard",
+        "type": "exercise"
+    },
+    {
+        "id": "Activity_042",
+        "name": "Activity 42",
+        "duration": 13,
+        "style": "reading/writing",
+        "effectiveness": {
+            "Lesson_003": 20
+        },
+        "difficulty": "easy",
+        "type": "reading"
+    },
+    {
+        "id": "Activity_043",
+        "name": "Activity 43",
+        "duration": 54,
+        "style": "reading/writing",
+        "effectiveness": {
+            "Lesson_001": 20
+        },
+        "difficulty": "hard",
+        "type": "reading"
+    },
+    {
+        "id": "Activity_044",
+        "name": "Activity 44",
+        "duration": 40,
+        "style": "kinesthetic",
+        "effectiveness": {
+            "Lesson_003": 20,
+            "Lesson_001": 20
+        },
+        "difficulty": "medium",
+        "type": "game"
+    },
+    {
+        "id": "Activity_045",
+        "name": "Activity 45",
+        "duration": 42,
+        "style": "reading/writing",
+        "effectiveness": {
+            "Lesson_002": 20,
+            "Lesson_003": 20
+        },
+        "difficulty": "medium",
+        "type": "quiz"
+    },
+    {
+        "id": "Activity_046",
+        "name": "Activity 46",
+        "duration": 38,
+        "style": "auditory",
+        "effectiveness": {
+            "Lesson_002": 20,
+            "Lesson_003": 20
+        },
+        "difficulty": "medium",
+        "type": "discussion"
+    },
+    {
+        "id": "Activity_047",
+        "name": "Activity 47",
+        "duration": 30,
+        "style": "kinesthetic",
+        "effectiveness": {
+            "Lesson_002": 20,
+            "Lesson_003": 20
+        },
+        "difficulty": "medium",
+        "type": "exercise"
+    },
+    {
+        "id": "Activity_048",
+        "name": "Activity 48",
+        "duration": 47,
+        "style": "visual",
+        "effectiveness": {
+            "Lesson_004": 20,
+            "Lesson_001": 20
+        },
+        "difficulty": "medium",
+        "type": "simulation"
+    },
+    {
+        "id": "Activity_049",
+        "name": "Activity 49",
+        "duration": 13,
+        "style": "kinesthetic",
+        "effectiveness": {
+            "Lesson_003": 20
+        },
+        "difficulty": "easy",
+        "type": "exercise"
+    },
+    {
+        "id": "Activity_050",
+        "name": "Activity 50",
+        "duration": 36,
+        "style": "auditory",
+        "effectiveness": {
+            "Lesson_002": 20,
+            "Lesson_005": 20
+        },
+        "difficulty": "medium",
+        "type": "video"
+    },
+    {
+        "id": "Activity_051",
+        "name": "Activity 51",
+        "duration": 13,
+        "style": "visual",
+        "effectiveness": {
+            "Lesson_004": 20,
+            "Lesson_003": 20
+        },
+        "difficulty": "easy",
+        "type": "video"
+    },
+    {
+        "id": "Activity_052",
+        "name": "Activity 52",
+        "duration": 45,
+        "style": "reading/writing",
+        "effectiveness": {
+            "Lesson_002": 20,
+            "Lesson_003": 20
+        },
+        "difficulty": "medium",
+        "type": "quiz"
+    },
+    {
+        "id": "Activity_053",
+        "name": "Activity 53",
+        "duration": 72,
+        "style": "auditory",
+        "effectiveness": {
+            "Lesson_002": 20,
+            "Lesson_001": 20
+        },
+        "difficulty": "hard",
+        "type": "video"
+    },
+    {
+        "id": "Activity_054",
+        "name": "Activity 54",
+        "duration": 17,
+        "style": "visual",
+        "effectiveness": {
+            "Lesson_005": 20,
+            "Lesson_004": 20
+        },
+        "difficulty": "easy",
+        "type": "game"
+    },
+    {
+        "id": "Activity_055",
+        "name": "Activity 55",
+        "duration": 12,
+        "style": "reading/writing",
+        "effectiveness": {
+            "Lesson_004": 20,
+            "Lesson_005": 20
+        },
+        "difficulty": "easy",
+        "type": "reading"
+    },
+    {
+        "id": "Activity_056",
+        "name": "Activity 56",
+        "duration": 14,
+        "style": "reading/writing",
+        "effectiveness": {
+            "Lesson_005": 20,
+            "Lesson_004": 20
+        },
+        "difficulty": "easy",
+        "type": "quiz"
+    },
+    {
+        "id": "Activity_057",
+        "name": "Activity 57",
+        "duration": 11,
+        "style": "kinesthetic",
+        "effectiveness": {
+            "Lesson_003": 20
+        },
+        "difficulty": "easy",
+        "type": "exercise"
+    },
+    {
+        "id": "Activity_058",
+        "name": "Activity 58",
+        "duration": 10,
+        "style": "auditory",
+        "effectiveness": {
+            "Lesson_005": 20,
+            "Lesson_004": 20
+        },
+        "difficulty": "easy",
+        "type": "discussion"
+    },
+    {
+        "id": "Activity_059",
+        "name": "Activity 59",
+        "duration": 14,
+        "style": "reading/writing",
+        "effectiveness": {
+            "Lesson_005": 20
+        },
+        "difficulty": "easy",
+        "type": "quiz"
+    },
+    {
+        "id": "Activity_060",
+        "name": "Activity 60",
+        "duration": 19,
+        "style": "reading/writing",
+        "effectiveness": {
+            "Lesson_003": 20
+        },
+        "difficulty": "easy",
+        "type": "reading"
+    },
+    {
+        "id": "Activity_061",
+        "name": "Activity 61",
+        "duration": 18,
+        "style": "kinesthetic",
+        "effectiveness": {
+            "Lesson_005": 20,
+            "Lesson_004": 20
+        },
+        "difficulty": "easy",
+        "type": "game"
+    },
+    {
+        "id": "Activity_062",
+        "name": "Activity 62",
+        "duration": 17,
+        "style": "kinesthetic",
+        "effectiveness": {
+            "Lesson_003": 20
+        },
+        "difficulty": "easy",
+        "type": "simulation"
+    }
+]

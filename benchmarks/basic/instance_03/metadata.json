@@ -1,0 +1,37 @@
+{
+    "tier_name": "basic",
+    "instance_id": 2,
+    "config": {
+        "num_instances": 3,
+        "lessons_range": [
+            5,
+            8
+        ],
+        "activities_range": [
+            50,
+            70
+        ],
+        "max_lessons_per_activity": 2,
+        "max_prereqs": 2,
+        "effectiveness_range": [
+            30,
+            40
+        ]
+    },
+    "metrics": {
+        "num_lessons": 6,
+        "num_activities": 50,
+        "root_nodes": 3,
+        "leaf_nodes": 3,
+        "max_path_length": 2,
+        "avg_path_length": 1.0,
+        "avg_prerequisites": 0.6666666666666666,
+        "max_prerequisites": 2,
+        "connectivity": 0.26666666666666666,
+        "num_disconnected_groups": 2,
+        "standalone_lessons": 1,
+        "is_dag": true
+    },
+    "generation_date": "__DATE__",
+    "is_dag": true
+}

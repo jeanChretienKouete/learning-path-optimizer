@@ -1,0 +1,37 @@
+{
+    "tier_name": "advanced",
+    "instance_id": 2,
+    "config": {
+        "num_instances": 3,
+        "lessons_range": [
+            50,
+            60
+        ],
+        "activities_range": [
+            800,
+            1000
+        ],
+        "max_lessons_per_activity": 5,
+        "max_prereqs": 7,
+        "effectiveness_range": [
+            7,
+            12
+        ]
+    },
+    "metrics": {
+        "num_lessons": 58,
+        "num_activities": 885,
+        "root_nodes": 15,
+        "leaf_nodes": 11,
+        "max_path_length": 6,
+        "avg_path_length": 3.4330708661417324,
+        "avg_prerequisites": 2.4827586206896552,
+        "max_prerequisites": 9,
+        "connectivity": 0.08711433756805807,
+        "num_disconnected_groups": 2,
+        "standalone_lessons": 1,
+        "is_dag": true
+    },
+    "generation_date": "__DATE__",
+    "is_dag": true
+}

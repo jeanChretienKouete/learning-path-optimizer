@@ -3,9 +3,15 @@ name = "learning-path-optimizer"
 version = "0.1.0"
 description = "Adaptive learning paths generator with constraint programming"
 readme = "README.md"
-requires-python = ">=3.12"
+requires-python = ">=3.13"
 dependencies = [
+    "matplotlib>=3.10.3",
+    "networkx>=3.4.2",
     "ortools>=9.12.4544",
+    "pyvis>=0.3.2",
+    "scikit-learn>=1.6.1",
+    "scikit-learn-extra",
+    "seaborn>=0.13.2",
 ]
 
 [dependency-groups]

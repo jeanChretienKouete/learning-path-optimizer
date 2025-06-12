@@ -1,0 +1,37 @@
+{
+    "tier_name": "intermediate",
+    "instance_id": 1,
+    "config": {
+        "num_instances": 3,
+        "lessons_range": [
+            20,
+            40
+        ],
+        "activities_range": [
+            300,
+            400
+        ],
+        "max_lessons_per_activity": 3,
+        "max_prereqs": 4,
+        "effectiveness_range": [
+            20,
+            25
+        ]
+    },
+    "metrics": {
+        "num_lessons": 33,
+        "num_activities": 341,
+        "root_nodes": 11,
+        "leaf_nodes": 11,
+        "max_path_length": 4,
+        "avg_path_length": 2.230769230769231,
+        "avg_prerequisites": 1.3333333333333333,
+        "max_prerequisites": 4,
+        "connectivity": 0.08333333333333333,
+        "num_disconnected_groups": 2,
+        "standalone_lessons": 1,
+        "is_dag": true
+    },
+    "generation_date": "__DATE__",
+    "is_dag": true
+}

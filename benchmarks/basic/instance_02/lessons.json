@@ -1,0 +1,36 @@
+[
+    {
+        "id": "Lesson_001",
+        "name": "Lesson 1",
+        "min_mastery": 88,
+        "prerequisites": []
+    },
+    {
+        "id": "Lesson_002",
+        "name": "Lesson 2",
+        "min_mastery": 92,
+        "prerequisites": []
+    },
+    {
+        "id": "Lesson_003",
+        "name": "Lesson 3",
+        "min_mastery": 85,
+        "prerequisites": []
+    },
+    {
+        "id": "Lesson_004",
+        "name": "Lesson 4",
+        "min_mastery": 73,
+        "prerequisites": [
+            "Lesson_001"
+        ]
+    },
+    {
+        "id": "Lesson_005",
+        "name": "Lesson 5",
+        "min_mastery": 91,
+        "prerequisites": [
+            "Lesson_002"
+        ]
+    }
+]
