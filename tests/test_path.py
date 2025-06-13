@@ -50,10 +50,15 @@ def test_path():
             print("🛑 No activities selected. Ending learning path.")
             break
 
-        # 2. Cluster activities into sprints based on unlocked lessons
+        # 2. Cluster activities into sprints based lessons dependancies
         sprints = []
         try:
-            builder = SprintBuilder(lessons, selected_activities)
+            builder = SprintBuilder(
+                lessons,
+                selected_activities,
+                use_clustering=True,
+                cluster_distance="jaccard",
+            )
             sprints = builder.build_sprints()
         except Exception as e:
             print(f"❌ Error during sprint building: {e}")

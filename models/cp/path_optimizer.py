@@ -1,4 +1,3 @@
-import time
 from typing import Dict, List, Literal
 
 import networkx as nx
@@ -36,10 +35,16 @@ class LearningPathOptimizer:
     def _build_variables(self):
         self.x = {a.id: self.model.NewBoolVar(f"x_{a.id}") for a in self.activities}
 
+        max_possible_mastery = {
+            l_id: self.learner.current_mastery.get(l_id, 0)
+            + sum(a.effectiveness.get(l_id, 0) for a in self.activities)
+            for l_id in self.lessons
+        }
+
         self.mastery = {
             l_id: self.model.NewIntVar(
                 self.learner.current_mastery.get(l_id, 0),
-                100,
+                max_possible_mastery[l_id],
                 f"mastery_{l_id}",
             )
             for l_id in self.lessons
@@ -69,10 +74,10 @@ class LearningPathOptimizer:
                     ).OnlyEnforceIf(self.x[a.id])
 
     def _build_objective(self, minimize: str | None = None):
-        if minimize == "duration":
-            self.model.Minimize(sum(a.duration * self.x[a.id] for a in self.activities))
-        else:
+        if minimize == "count":
             self.model.Minimize(sum(self.x[a.id] for a in self.activities))
+        else:
+            self.model.Minimize(sum(a.duration * self.x[a.id] for a in self.activities))
 
     def _add_decision_heuristics(
         self,
@@ -124,14 +129,12 @@ class LearningPathOptimizer:
             self.solver.parameters.search_branching = cp_model.FIXED_SEARCH
             self.solver.parameters.log_search_progress = True
 
-            start_time = time.time()
             status = self.solver.Solve(self.model)
-            solve_time = time.time() - start_time
 
             results.append(
                 {
                     **config,
-                    "time_sec": solve_time,
+                    "time_sec": self.solver.WallTime(),
                     "objective": self.solver.ObjectiveValue()
                     if status in (cp_model.OPTIMAL, cp_model.FEASIBLE)
                     else None,
@@ -153,9 +156,8 @@ class LearningPathOptimizer:
             print("🎯 Building objective")
             self._build_objective()
             print("🎯 Solving model")
-            start = time.time()
             status = self.solver.Solve(self.model)
-            print(f"✅ Solver finished in {time.time() - start} seconds.")
+            print(f"✅ Solver finished in {self.solver.WallTime()} seconds.")
         except Exception as e:
             print(f"❌ Solver failed: {e}")
             raise RuntimeError(f"Solver failed: {e}")
