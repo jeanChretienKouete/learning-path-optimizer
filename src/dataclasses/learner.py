@@ -3,7 +3,7 @@ from collections import defaultdict
 from dataclasses import dataclass
 from typing import Dict, List, Set
 
-from models.dataclasses.activity import Activity
+from src.dataclasses.activity import Activity
 from utils.data_loader import load_data
 
 lessons, activities = load_data()
@@ -51,29 +51,6 @@ class LearnerModel:
     def completed_activity_ids(self) -> Set[str]:
         """Derive completed activities from history"""
         return {a_id for log in self.sprint_history for a_id in log.activities}
-
-    def _update_preferences(
-        self, performances: List[ActivityPerformance], activities: List[Activity]
-    ):
-        activity_map = {a.id: a for a in activities}
-
-        def update_category(preference_map: Dict[str, float], key_fn):
-            scores_by_key = defaultdict(list)
-            for perf in performances:
-                attr = key_fn(activity_map[perf.activity_id])
-                if attr is not None:
-                    scores_by_key[attr].append(perf.performance)
-            for attr, scores in scores_by_key.items():
-                avg_perf = sum(scores) / len(scores)
-                old = preference_map[attr]
-                preference_map[attr] = (
-                    self.preference_ema_alpha * avg_perf
-                    + (1 - self.preference_ema_alpha) * old
-                )
-
-        update_category(self.style_preferences, lambda a: a.style)
-        update_category(self.activity_type_preferences, lambda a: a.type)
-        update_category(self.difficulty_preferences, lambda a: a.difficulty)
 
     def record_sprint(
         self, performances: List[ActivityPerformance], activities: List[Activity]

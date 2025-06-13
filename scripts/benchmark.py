@@ -5,9 +5,9 @@ from typing import Dict, List
 
 import networkx as nx
 
-from models.constants.constants import ACTIVITY_TYPES, DIFFICULTY_SETTINGS, TIERS_CONFIG
-from models.dataclasses.activity import Activity
-from models.dataclasses.lesson import Lesson
+from src.constants.constants import ACTIVITY_TYPES, DIFFICULTY_SETTINGS, TIERS_CONFIG
+from src.dataclasses.activity import Activity
+from src.dataclasses.lesson import Lesson
 from utils.instance_graph import (
     save_interactive_instance_graph,
     save_interactive_lesson_graph,

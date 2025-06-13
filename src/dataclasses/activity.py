@@ -2,7 +2,7 @@ from dataclasses import dataclass
 from typing import Dict
 
 
-@dataclass(frozen=True)
+@dataclass
 class Activity:
     id: str
     name: str

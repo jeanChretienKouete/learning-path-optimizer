@@ -1,5 +1,5 @@
-from models.cp.path_optimizer import LearningPathOptimizer
-from models.dataclasses.learner import LearnerModel
+from src.dataclasses.learner import LearnerModel
+from src.modules.cp.path_optimizer import LearningPathOptimizer
 from utils.data_loader import load_data
 
 lessons, activities = load_data()
@@ -39,6 +39,8 @@ combinations_to_test = [
 
 learner = LearnerModel(set(lessons.keys()))
 
+output_path = "output/heuristics/heuristic_results_advanced_inst_1.csv"
+
 optimizer = LearningPathOptimizer(lessons, activities, learner)
 results = optimizer.run_experiment(combinations_to_test)
-results.to_csv("output/heuristics/heuristic_results_advanced_inst_1.csv", index=False)
+results.to_csv(output_path, index=False)

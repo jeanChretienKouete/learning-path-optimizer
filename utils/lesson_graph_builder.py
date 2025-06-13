@@ -2,7 +2,7 @@ from typing import Dict
 
 import networkx as nx
 
-from models.dataclasses.lesson import Lesson
+from src.dataclasses.lesson import Lesson
 
 
 def build_lesson_graph(lessons: Dict[str, Lesson]) -> nx.DiGraph:

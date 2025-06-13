@@ -1,7 +1,7 @@
 [project]
 name = "learning-path-optimizer"
 version = "0.1.0"
-description = "Adaptive learning paths generator with constraint programming"
+description = "Generating adaptive learning path using Constraint Programming"
 readme = "README.md"
 requires-python = ">=3.13"
 dependencies = [

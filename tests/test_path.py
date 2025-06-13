@@ -1,17 +1,14 @@
 import random
 
-from models.clustering.path_clusterer import (
-    PureLevelSprintBuilder as SprintBuilder,
-    # DepthAwareSprintBuilder as SprintBuilder,
-)
-from models.cp.path_optimizer import LearningPathOptimizer
-from models.dataclasses.learner import ActivityPerformance, LearnerModel
+from src.dataclasses.learner import ActivityPerformance, LearnerModel
+from src.modules.clustering.path_clusterer import SprintBuilder
+from src.modules.cp.path_optimizer import LearningPathOptimizer
 from utils.data_loader import load_data
 
 lessons, activities = load_data()
 
 
-def print_selected_activities(selected_activities):
+def print_selected_activities(selected_activities) -> None:
     print("Selected Activities:")
     for act in selected_activities:
         print(f"- {act.name} (Duration: {act.duration})")
@@ -19,7 +16,7 @@ def print_selected_activities(selected_activities):
     print("\nTotal Time:", sum(activity.duration for activity in selected_activities))
 
 
-def print_sprints(sprints):
+def print_sprints(sprints) -> None:
     for i, sprint in enumerate(sprints):
         print(f"\n🏃 Sprint {i + 1} — {len(sprint)} activities")
         all_lessons = set()
@@ -30,7 +27,7 @@ def print_sprints(sprints):
             print(f"    - {a.id}: {a.type} ({a.difficulty}, {a.duration}min)")
 
 
-def test_path():
+def test_path() -> None:
     learner = LearnerModel(set(lessons.keys()))
     all_activities = activities.copy()
 
@@ -74,7 +71,6 @@ def test_path():
             for a in sprints[0]
         ]
         learner.record_sprint(performances, all_activities)
-        # learner._update_preferences(performances, all_activities)
 
         learner.print_sprints()
 

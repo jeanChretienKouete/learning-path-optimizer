@@ -1,11 +1,11 @@
-from models.cp.path_optimizer import LearningPathOptimizer
-from models.dataclasses.learner import LearnerModel
+from src.dataclasses.learner import LearnerModel
+from src.modules.cp.path_optimizer import LearningPathOptimizer
 from utils.data_loader import load_data
 
 lessons, activities = load_data()
 
 
-def print_selected_activities(selected_activities):
+def print_selected_activities(selected_activities) -> None:
     print("Selected Activities:")
     for act in selected_activities:
         print(f"- {act.name} (Duration: {act.duration})")
@@ -13,7 +13,7 @@ def print_selected_activities(selected_activities):
     print("\nTotal Time:", sum(activity.duration for activity in selected_activities))
 
 
-def test_optimizer():
+def test_optimizer() -> None:
     learner = LearnerModel(set(lessons.keys()))
     all_activities = activities.copy()
 

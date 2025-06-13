@@ -4,8 +4,8 @@ from typing import Dict, List
 
 from pyvis.network import Network
 
-from models.dataclasses.activity import Activity
-from models.dataclasses.lesson import Lesson
+from src.dataclasses.activity import Activity
+from src.dataclasses.lesson import Lesson
 
 
 def save_interactive_instance_graph(
@@ -92,7 +92,7 @@ def save_interactive_instance_graph(
         clean_title = "".join(
             c if c.isalnum() else "_" for c in title.encode("ascii", "ignore").decode()
         )
-        output_file = os.path.abspath(f"visualizations/{clean_title}.html")
+        output_file = os.path.abspath(f"graphs/{clean_title}.html")
 
         # Save with explicit UTF-8 encoding
         html = net.generate_html()
@@ -165,7 +165,7 @@ def save_interactive_lesson_graph(
         clean_title = "".join(
             c if c.isalnum() else "_" for c in title.encode("ascii", "ignore").decode()
         )
-        output_file = os.path.abspath(f"visualizations/{clean_title}.html")
+        output_file = os.path.abspath(f"graph/{clean_title}.html")
 
         # Save with explicit UTF-8 encoding
         html = net.generate_html()

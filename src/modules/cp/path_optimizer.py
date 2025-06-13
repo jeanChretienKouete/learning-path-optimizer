@@ -4,9 +4,9 @@ import networkx as nx
 import pandas as pd
 from ortools.sat.python import cp_model
 
-from models.dataclasses.activity import Activity
-from models.dataclasses.learner import LearnerModel
-from models.dataclasses.lesson import Lesson
+from src.dataclasses.activity import Activity
+from src.dataclasses.learner import LearnerModel
+from src.dataclasses.lesson import Lesson
 from utils.lesson_graph_builder import build_lesson_graph
 
 
@@ -16,7 +16,7 @@ class LearningPathOptimizer:
         lessons: Dict[str, Lesson],
         activities: List[Activity],
         learner: LearnerModel,
-    ):
+    ) -> None:
         self.learner = learner
         self.lessons = lessons
         self.lesson_graph = build_lesson_graph(lessons)
@@ -30,9 +30,9 @@ class LearningPathOptimizer:
         self.solver.parameters.max_time_in_seconds = 600
         self.solver.parameters.random_seed = 42
 
-        self.solver.parameters.log_search_progress = True
+        # self.solver.parameters.log_search_progress = True
 
-    def _build_variables(self):
+    def _build_variables(self) -> None:
         self.x = {a.id: self.model.NewBoolVar(f"x_{a.id}") for a in self.activities}
 
         max_possible_mastery = {
@@ -50,7 +50,7 @@ class LearningPathOptimizer:
             for l_id in self.lessons
         }
 
-    def _add_constraints(self):
+    def _add_constraints(self) -> None:
         # 1. Mastery accumulation
         for l_id, lesson in self.lessons.items():
             self.model.Add(
@@ -73,17 +73,21 @@ class LearningPathOptimizer:
                         self.mastery[pre_id] >= self.lessons[pre_id].min_mastery
                     ).OnlyEnforceIf(self.x[a.id])
 
-    def _build_objective(self, minimize: str | None = None):
+    def _build_objective(
+        self, minimize: Literal["count", "duration"] = "duration"
+    ) -> None:
         if minimize == "count":
             self.model.Minimize(sum(self.x[a.id] for a in self.activities))
-        else:
+        elif minimize == "duration":
             self.model.Minimize(sum(a.duration * self.x[a.id] for a in self.activities))
+        else:
+            raise ValueError("minimize must be 'count' or 'duration'")
 
     def _add_decision_heuristics(
         self,
         val_strategy: Literal["SELECT_MAX_VALUE", "SELECT_MIN_VALUE"],
-        mastery_val_strategy: Literal["SELECT_MIN_VALUE", "SELECT_MAX_VALUE"] | None,
-    ):
+        mastery_val_strategy: Literal["SELECT_MIN_VALUE", "SELECT_MAX_VALUE"],
+    ) -> None:
         """Configurable heuristic for both activity and mastery variables."""
         # 1. Pre-sort activities based on chosen ordering
         topo_order = list(nx.topological_sort(self.lesson_graph))
@@ -102,23 +106,21 @@ class LearningPathOptimizer:
         self.model.AddDecisionStrategy(
             activity_vars,
             cp_model.CHOOSE_FIRST,
-            getattr(cp_model, val_strategy),  # e.g., SELECT_MAX_VALUE/SELECT_MIN_VALUE
+            getattr(cp_model, val_strategy),
         )
 
         if mastery_val_strategy:
             self.model.AddDecisionStrategy(
                 mastery_vars,
-                cp_model.CHOOSE_FIRST,  # Follow topological order
-                getattr(
-                    cp_model, mastery_val_strategy
-                ),  # e.g., SELECT_MIN_VALUE/SELECT_MAX_VALUE
+                cp_model.CHOOSE_FIRST,
+                getattr(cp_model, mastery_val_strategy),
             )
 
-    def run_experiment(self, heuristic_combinations: list[dict]):
+    def run_experiment(self, heuristic_combinations: list[dict]) -> pd.DataFrame:
         """Test multiple heuristic combinations and log results."""
         results = []
         for config in heuristic_combinations:
-            self.model = cp_model.CpModel()  # Reset model
+            self.model = cp_model.CpModel()
             self._build_variables()
             self._add_constraints()
             self._add_decision_heuristics(**config)
@@ -146,7 +148,7 @@ class LearningPathOptimizer:
 
         return pd.DataFrame(results)
 
-    def run(self):
+    def run(self) -> List[Activity]:
         print("🎯 Set of activities selection")
         try:
             print("🎯 Adding constraints")

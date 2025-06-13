@@ -6,20 +6,20 @@ from sklearn.cluster import AgglomerativeClustering, KMeans
 from sklearn.metrics import pairwise_distances
 from sklearn.preprocessing import StandardScaler
 
-from models.dataclasses.activity import Activity
-from models.dataclasses.lesson import Lesson
+from src.dataclasses.activity import Activity
+from src.dataclasses.lesson import Lesson
 from utils.lesson_graph_builder import build_lesson_graph
 
 
-class PureLevelSprintBuilder:
+class SprintBuilder:
     def __init__(
         self,
         lessons: Dict[str, Lesson],
         activities: List[Activity],
         max_sprint_size: int = 5,
         use_clustering: bool = True,
-        cluster_distance: Literal["euclidean", "jaccard"] = "euclidean",
-    ):
+        cluster_distance: Literal["euclidean", "jaccard"] = "jaccard",
+    ) -> None:
         self.lessons = lessons
         self.activities = activities
         self.max_sprint_size = max_sprint_size
