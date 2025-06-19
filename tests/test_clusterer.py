@@ -5,6 +5,12 @@ lessons, activities = load_data()
 
 
 def print_sprints(sprints) -> None:
+    """
+    Prints details of each sprint and the lessons covered.
+
+    Args:
+        sprints (List[List[Activity]]): List of sprints, each a list of activities.
+    """
     for i, sprint in enumerate(sprints):
         print(f"\n🏃 Sprint {i + 1} — {len(sprint)} activities")
         all_lessons = set()
@@ -16,6 +22,12 @@ def print_sprints(sprints) -> None:
 
 
 def test_clusterer() -> None:
+    """
+    Tests the SprintBuilder by building sprints from all activities
+    and printing the resulting sprint groupings.
+
+    Catches and reports exceptions during sprint building.
+    """
     all_activities = activities.copy()
 
     # 2. Cluster activities into sprints based on unlocked lessons

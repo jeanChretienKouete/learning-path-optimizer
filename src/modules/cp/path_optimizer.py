@@ -11,12 +11,34 @@ from utils.lesson_graph_builder import build_lesson_graph
 
 
 class LearningPathOptimizer:
+    """
+    Optimizes a learner's path through educational activities using constraint programming.
+
+    This optimizer selects a subset of activities that help the learner meet
+    lesson prerequisites and mastery goals while minimizing either the number or
+    total duration of activities. It uses Google's OR-Tools CP-SAT solver.
+
+    Attributes:
+        lessons (Dict[str, Lesson]): Mapping of lesson IDs to lesson objects.
+        activities (List[Activity]): List of available activities not yet completed.
+        learner (LearnerModel): Learner model tracking mastery and sprint history.
+    """
+
     def __init__(
         self,
         lessons: Dict[str, Lesson],
         activities: List[Activity],
         learner: LearnerModel,
     ) -> None:
+        """
+        Initializes the optimizer with the given lessons, activities, and learner model.
+
+        Args:
+            lessons (Dict[str, Lesson]): Mapping of lesson IDs to lesson data.
+            activities (List[Activity]): List of all possible activities.
+            learner (LearnerModel): Learner model with current state and mastery.
+        """
+
         self.learner = learner
         self.lessons = lessons
         self.lesson_graph = build_lesson_graph(lessons)
@@ -33,6 +55,13 @@ class LearningPathOptimizer:
         # self.solver.parameters.log_search_progress = True
 
     def _build_variables(self) -> None:
+        """
+        Defines decision variables for the constraint model.
+
+        - Binary variable for each activity (selected or not).
+        - Integer variable for mastery level per lesson (bounded).
+        """
+
         self.x = {a.id: self.model.NewBoolVar(f"x_{a.id}") for a in self.activities}
 
         max_possible_mastery = {
@@ -51,6 +80,14 @@ class LearningPathOptimizer:
         }
 
     def _add_constraints(self) -> None:
+        """
+        Adds constraints to the model to ensure valid learning paths.
+
+        Constraints:
+            1. Mastery accumulation from selected activities.
+            2. Each lesson must reach its minimum mastery threshold.
+            3. Lesson prerequisites must be satisfied if an activity affecting it is selected.
+        """
         # 1. Mastery accumulation
         for l_id, lesson in self.lessons.items():
             self.model.Add(
@@ -76,6 +113,15 @@ class LearningPathOptimizer:
     def _build_objective(
         self, minimize: Literal["count", "duration"] = "duration"
     ) -> None:
+        """
+        Sets the objective function for the optimization problem.
+
+        Args:
+            minimize (Literal["count", "duration"]): What to minimize—either number of activities or total duration.
+
+        Raises:
+            ValueError: If `minimize` is not one of "count" or "duration".
+        """
         if minimize == "count":
             self.model.Minimize(sum(self.x[a.id] for a in self.activities))
         elif minimize == "duration":
@@ -88,7 +134,13 @@ class LearningPathOptimizer:
         val_strategy: Literal["SELECT_MAX_VALUE", "SELECT_MIN_VALUE"],
         mastery_val_strategy: Literal["SELECT_MIN_VALUE", "SELECT_MAX_VALUE"],
     ) -> None:
-        """Configurable heuristic for both activity and mastery variables."""
+        """
+        Adds heuristic strategies to guide the solver's decision process.
+
+        Args:
+            val_strategy (Literal): Strategy for activity variables ordering (e.g., "SELECT_MAX_VALUE").
+            mastery_val_strategy (Literal): Strategy for mastery variables ordering (e.g., "SELECT_MIN_VALUE").
+        """
         # 1. Pre-sort activities based on chosen ordering
         topo_order = list(nx.topological_sort(self.lesson_graph))
         lesson_rank = {l_id: i for i, l_id in enumerate(topo_order)}
@@ -117,7 +169,15 @@ class LearningPathOptimizer:
             )
 
     def run_experiment(self, heuristic_combinations: list[dict]) -> pd.DataFrame:
-        """Test multiple heuristic combinations and log results."""
+        """
+        Runs multiple solver configurations with different heuristic combinations.
+
+        Args:
+            heuristic_combinations (list[dict]): List of heuristic config dictionaries.
+
+        Returns:
+            pd.DataFrame: DataFrame with solver performance metrics and results for each config.
+        """
         results = []
         for config in heuristic_combinations:
             self.model = cp_model.CpModel()
@@ -149,6 +209,16 @@ class LearningPathOptimizer:
         return pd.DataFrame(results)
 
     def run(self) -> List[Activity]:
+        """
+        Solves the optimization model and returns the selected activities.
+
+        Returns:
+            List[Activity]: Activities selected by the optimizer.
+
+        Raises:
+            RuntimeError: If the solver encounters an error.
+            ValueError: If no feasible solution exists or learning is already complete.
+        """
         print("🎯 Set of activities selection")
         try:
             print("🎯 Adding constraints")

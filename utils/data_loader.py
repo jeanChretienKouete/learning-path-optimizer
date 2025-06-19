@@ -8,6 +8,14 @@ from src.dataclasses.lesson import Lesson
 
 @lru_cache(maxsize=None)
 def load_data() -> tuple[Dict[str, Lesson], List[Activity]]:
+    """
+    Load lessons and activities from JSON files and parse them into dataclass objects.
+
+    Returns:
+        Tuple[Dict[str, Lesson], List[Activity]]: A dictionary of lessons indexed by ID,
+        and a list of activity instances.
+    """
+
     with open("benchmarks/basic/instance_01/lessons.json", "r") as f:
         lessons = json.load(f)
         lessons = {lesson["id"]: Lesson(**lesson) for lesson in lessons}

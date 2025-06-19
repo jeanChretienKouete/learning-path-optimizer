@@ -39,8 +39,10 @@ combinations_to_test = [
 
 learner = LearnerModel(set(lessons.keys()))
 
-output_path = "output/heuristics/heuristic_results_advanced_inst_1.csv"
+# output_path = "output/heuristics/heuristic_results_advanced_inst_1.csv"
 
 optimizer = LearningPathOptimizer(lessons, activities, learner)
 results = optimizer.run_experiment(combinations_to_test)
-results.to_csv(output_path, index=False)
+# results.to_csv(output_path, index=False)
+
+print(results)

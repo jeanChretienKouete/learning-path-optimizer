@@ -2,6 +2,8 @@ import logging
 
 
 class CustomLogger:
+    """Custom logger class"""
+
     def __init__(self, name="logger", level=logging.DEBUG, log_file=None) -> None:
         self.logger = logging.getLogger(name)
         self.logger.setLevel(level)

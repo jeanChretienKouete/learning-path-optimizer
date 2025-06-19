@@ -11,23 +11,52 @@ lessons, activities = load_data()
 
 @dataclass
 class ActivityPerformance:
+    """
+    Represents the performance score for a specific activity.
+
+    Attributes:
+        activity_id (str): ID of the activity performed.
+        performance (float): Learner's performance score (typically between 0.0 and 1.0).
+    """
+
     activity_id: str
-    performance: float  # 0.0 to 1.0 (normalized score)
+    performance: float
 
 
 @dataclass
 class SprintLog:
+    """
+    Represents a log of a single sprint, including activities and mastery state.
+
+    Attributes:
+        sprint_id (int): Unique identifier for the sprint.
+        activities (List[str]): List of activity IDs performed in this sprint.
+        performances (Dict[str, float]): Mapping of activity IDs to performance scores.
+        timestamp (datetime.datetime): Time when the sprint was recorded.
+        mastery_after (Dict[str, int]): Mastery level of the learner for each lesson after the sprint.
+    """
+
     sprint_id: int
-    activities: List[str]  # activity IDs
-    performances: Dict[str, float]  # activity_id: performance
+    activities: List[str]
+    performances: Dict[str, float]
     timestamp: datetime.datetime
-    mastery_after: Dict[str, int]  # lesson_id: mastery (0 to 100)
+    mastery_after: Dict[str, int]
 
 
 class LearnerModel:
-    def __init__(self, target_lessons: Set[str]):
+    """
+    Simulates a learner model for tracking mastery and activity history.
+
+    This model keeps track of completed lessons, user preferences,
+    and sprint history to simulate learning progress over time.
+    """
+
+    def __init__(self, target_lessons: Set[str]) -> None:
         """
-        Tracks learner's state and goals
+        Initializes the learner model with target lessons and default states.
+
+        Args:
+            target_lessons (Set[str]): Set of lesson IDs the learner aims to master.
         """
         self.target_lessons = target_lessons
         self.sprint_history: List[SprintLog] = []
@@ -40,7 +69,12 @@ class LearnerModel:
 
     @property
     def completed_lesson_ids(self) -> Set[str]:
-        """Derive completed lessons from history"""
+        """
+        Returns the set of lesson IDs where mastery meets or exceeds the required threshold.
+
+        Returns:
+            Set[str]: IDs of completed lessons.
+        """
         return {
             l_id
             for l_id in self.current_mastery
@@ -49,12 +83,24 @@ class LearnerModel:
 
     @property
     def completed_activity_ids(self) -> Set[str]:
-        """Derive completed activities from history"""
+        """
+        Returns the set of activity IDs completed across all recorded sprints.
+
+        Returns:
+            Set[str]: IDs of completed activities.
+        """
         return {a_id for log in self.sprint_history for a_id in log.activities}
 
     def record_sprint(
         self, performances: List[ActivityPerformance], activities: List[Activity]
-    ):
+    ) -> None:
+        """
+        Records a sprint by updating mastery based on performance and logging the result.
+
+        Args:
+            performances (List[ActivityPerformance]): List of activity performances in the sprint.
+            activities (List[Activity]): List of available activities with effectiveness details.
+        """
         # Calculate mastery gains
         activity_map = {a.id: a for a in activities}
         for perf in performances:
@@ -78,7 +124,13 @@ class LearnerModel:
         )
         self.next_sprint_id += 1
 
-    def print_sprints(self):
+    def print_sprints(self) -> None:
+        """
+        Prints the most recent sprint's performance and mastery updates.
+
+        If no sprints have been recorded yet, a message is printed instead.
+        """
+
         if not self.sprint_history:
             print("No sprints recorded yet.")
             return

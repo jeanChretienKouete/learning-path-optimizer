@@ -10,7 +10,8 @@ from src.dataclasses.lesson import Lesson
 
 def save_interactive_instance_graph(
     graph, lessons: Dict[str, Lesson], activities: List[Activity], title="Lesson Graph"
-):
+) -> str | None:
+    """Save an interactive visualization of the graph of lessons and activities."""
     try:
         # Create a pyvis network
         net = Network(
@@ -111,7 +112,8 @@ def save_interactive_instance_graph(
 
 def save_interactive_lesson_graph(
     graph, lessons: Dict[str, Lesson], title="Lesson Graph"
-):
+) -> str | None:
+    """Save an interactive visualization of the graph of lessons."""
     try:
         # Create a pyvis network
         net = Network(

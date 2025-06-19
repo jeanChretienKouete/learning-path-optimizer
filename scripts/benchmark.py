@@ -1,7 +1,7 @@
 import json
 import os
 import random
-from typing import Dict, List
+from typing import Any, Dict, List
 
 import networkx as nx
 
@@ -15,9 +15,25 @@ from utils.instance_graph import (
 
 
 class BenchmarkGenerator:
+    """
+    A class to generate and save a benchmark instance for a given tier.
+
+    This includes generating lessons and activities, assigning prerequisites,
+    calculating graph metrics, and saving the instance to JSON files.
+    """
+
     def __init__(
         self, config: dict, tier_name: str, instance_id: int, output_dir="benchmarks"
-    ):
+    ) -> None:
+        """
+        Initializes the BenchmarkGenerator.
+
+        Args:
+            config (dict): Configuration dictionary containing ranges and limits for generation.
+            tier_name (str): Name of the tier (e.g., "basic", "advanced").
+            instance_id (int): Unique identifier for this instance.
+            output_dir (str, optional): Directory to save generated files. Defaults to "benchmarks".
+        """
         self.config = config
         self.tier_name = tier_name
         self.instance_id = instance_id
@@ -26,9 +42,19 @@ class BenchmarkGenerator:
         self.activities: List[Activity] = []
         self.graph = nx.DiGraph()
 
+        # Set a random seed for reproducibility
         random.seed(instance_id * 100 + ord(tier_name[0]))
 
-    def generate(self):
+    def generate(self) -> Dict[str, Any]:
+        """
+         Generates a benchmark instance including lessons, activities, and prerequisites.
+
+        It also saves the generated data to JSON and creates interactive graphs.
+        Metrics about the graph structure are computed and returned.
+
+        Returns:
+            Dict[str, Any]: Dictionary containing graph metrics for the instance.
+        """
         self._create_lessons()
         self._assign_prerequisites()
         self._create_activities()
@@ -39,7 +65,10 @@ class BenchmarkGenerator:
         return self._calculate_graph_metrics()
 
     def _create_lessons(self):
-        """Create lessons without domain grouping"""
+        """
+        Randomly generates a set of lessons based on the specified configuration.
+        Each lesson will be assigned a unique ID and a random mastery value.
+        """
         num_lessons = random.randint(*self.config["lessons_range"])
         for i in range(num_lessons):
             lid = f"Lesson_{i + 1:03d}"
@@ -52,7 +81,12 @@ class BenchmarkGenerator:
             self.graph.add_node(lid)
 
     def _assign_prerequisites(self):
-        """Create prerequisites with natural difficulty progression"""
+        """
+        Assigns prerequisites to lessons with a natural progression of difficulty.
+
+        Earlier lessons are easier and have fewer prerequisites. The number of
+        prerequisites scales with lesson position in the graph.
+        """
         lesson_ids = list(self.lessons.keys())
 
         # Assign difficulty based on topological position
@@ -75,8 +109,11 @@ class BenchmarkGenerator:
                 for p in prereqs:
                     self.graph.add_edge(p, lid)
 
-    def _create_activities(self):
-        """Create activities with duration/effectiveness correlations"""
+    def _create_activities(self) -> None:
+        """
+        Randomly generates a set of activities based on the specified configuration.
+        Each activity will be assigned a unique ID, type, duration, and effectiveness.
+        """
         num_activities = random.randint(*self.config["activities_range"])
         lesson_ids = list(self.lessons.keys())
 
@@ -126,11 +163,12 @@ class BenchmarkGenerator:
             )
 
     def _get_max_dag_depth(self) -> int:
+        """Returns the maximum depth of the DAG"""
         if not self.graph.nodes():
             return 0
         try:
             return nx.dag_longest_path_length(self.graph)
-        except nx.NetworkXUnfeasible:  # Not a DAG
+        except nx.NetworkXNotImplemented:
             return 0
 
     def _get_difficulty_label(self, complexity: float) -> str:
@@ -142,7 +180,7 @@ class BenchmarkGenerator:
         else:
             return "hard"
 
-    def _save_to_json(self):
+    def _save_to_json(self) -> None:
         """Save generated data to JSON files with additional metrics"""
         path = os.path.join(
             self.output_dir, self.tier_name, f"instance_{self.instance_id + 1:02d}"
@@ -259,7 +297,8 @@ class BenchmarkGenerator:
 
         return metrics
 
-    def _save_instance_graph(self):
+    def _save_instance_graph(self) -> None:
+        """Save an interactive visualization of the graph of lessons and activities"""
         html_file = save_interactive_instance_graph(
             self.graph,
             self.lessons,
@@ -269,7 +308,8 @@ class BenchmarkGenerator:
 
         print(f"Interactive visualization saved to: {html_file}")
 
-    def _save_lesson_graph(self):
+    def _save_lesson_graph(self) -> None:
+        """Save an interactive visualization of the graph of lessons"""
         html_file = save_interactive_lesson_graph(
             self.graph,
             self.lessons,
@@ -278,52 +318,16 @@ class BenchmarkGenerator:
         print(f"Interactive visualization saved to: {html_file}")
 
 
-def load_base_instance(base_path):
-    """Load a base instance from the specified path"""
-    try:
-        if not os.path.exists(base_path):
-            return None
+def generate_all_tiers(output_dir="benchmarks") -> Dict[str, Any]:
+    """
+    Generates benchmark instances for all configured tiers and saves them.
 
-        lessons = []
-        activities = []
-        metadata = {}
+    Args:
+        output_dir (str, optional): Root directory to store generated benchmark data. Defaults to "benchmarks".
 
-        lessons_path = os.path.join(base_path, "lessons.json")
-        activities_path = os.path.join(base_path, "activities.json")
-        metadata_path = os.path.join(base_path, "metadata.json")
-
-        if os.path.exists(lessons_path):
-            with open(lessons_path) as f:
-                lessons = json.load(f)
-
-        if os.path.exists(activities_path):
-            with open(activities_path) as f:
-                activities = json.load(f)
-
-        if os.path.exists(metadata_path):
-            with open(metadata_path) as f:
-                metadata = json.load(f)
-
-        # Reconstruct the graph
-        graph = nx.DiGraph()
-        for lesson in lessons:
-            graph.add_node(lesson["id"])
-            for prereq in lesson["prerequisites"]:
-                graph.add_edge(prereq, lesson["id"])
-
-        return {
-            "lessons": lessons,
-            "activities": activities,
-            "metadata": metadata,
-            "graph": graph,
-        }
-    except Exception as e:
-        print(f"Error loading base instance from {base_path}: {e}")
-        return None
-
-
-def generate_all_tiers(output_dir="benchmarks"):
-    """Simplified generator without instance chaining"""
+    Returns:
+        Dict[str, Any]: A dictionary with tier names as keys and lists of instance metrics as values.
+    """
     all_metrics = {}
     for tier_name, config in TIERS_CONFIG.items():
         tier_metrics = []

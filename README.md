@@ -2,7 +2,7 @@
 
 ## 📚 Overview
 
-The goal of this project is to generate **personalized learning paths** for individual learners by selecting an optimal set of learning activities from a larger pool. Each learner has a unique profile—including their **initial knowledge**, **preferred learning styles**, and **difficulty preferences**—and must reach **mastery thresholds** across a set of learning objectives (lessons).
+The goal of this project is to generate **personalized learning paths** for individual learners by selecting an optimal set of learning activities from a larger pool. Each learner has a unique profile (including their **initial knowledge**, **preferred learning styles**, and **difficulty preferences**) and must reach **mastery thresholds** across a set of learning objectives (lessons).
 
 The main challenge is to ensure that:
 
@@ -46,7 +46,7 @@ Pipeline:
 
 ## 📂 Project Structure
 
-- `src/` — source ....
+- `src/` — source
 - `tests/` — benchmarking and testing
 - `utils/` — helper functions
 - `benchmarks/` — generated instances
@@ -80,7 +80,7 @@ with open("benchmarks/advanced/instance_02/activities.json") as f:
 
 ## 📄 License
 
-MIT (or your preferred license)
+MIT
 
 ## 👨‍🎓 Author
 

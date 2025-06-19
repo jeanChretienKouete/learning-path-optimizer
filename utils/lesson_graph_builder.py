@@ -6,6 +6,8 @@ from src.dataclasses.lesson import Lesson
 
 
 def build_lesson_graph(lessons: Dict[str, Lesson]) -> nx.DiGraph:
+    """Build a graph of lessons and their prerequisites."""
+
     G = nx.DiGraph()
     for lesson in lessons.values():
         G.add_node(lesson.id)

@@ -9,6 +9,12 @@ lessons, activities = load_data()
 
 
 def print_selected_activities(selected_activities) -> None:
+    """
+    Print a list of selected activities with duration and total time.
+
+    Args:
+        selected_activities (List[Activity]): Activities selected by the optimizer.
+    """
     print("Selected Activities:")
     for act in selected_activities:
         print(f"- {act.name} (Duration: {act.duration})")
@@ -17,6 +23,12 @@ def print_selected_activities(selected_activities) -> None:
 
 
 def print_sprints(sprints) -> None:
+    """
+    Print each sprint and its associated activities and covered lessons.
+
+    Args:
+        sprints (List[List[Activity]]): Grouped activities for each sprint.
+    """
     for i, sprint in enumerate(sprints):
         print(f"\n🏃 Sprint {i + 1} — {len(sprint)} activities")
         all_lessons = set()
@@ -28,6 +40,16 @@ def print_sprints(sprints) -> None:
 
 
 def test_path() -> None:
+    """
+    End-to-end test simulating the learner's journey through multiple sprints.
+
+    Steps:
+    - Uses CP-SAT to select optimal activities.
+    - Clusters activities into sprints.
+    - Simulates user performance.
+    - Updates learner state.
+    Repeats until learning goals are complete or no feasible paths remain.
+    """
     learner = LearnerModel(set(lessons.keys()))
     all_activities = activities.copy()
 
