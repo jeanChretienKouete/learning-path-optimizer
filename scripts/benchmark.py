@@ -268,7 +268,6 @@ class BenchmarkGenerator:
                     n for n in self.graph.nodes() if self.graph.out_degree(n) == 0
                 ]
 
-                all_paths = []
                 path_lengths = []
 
                 for source in root_nodes:
@@ -277,7 +276,6 @@ class BenchmarkGenerator:
                             paths = list(
                                 nx.all_simple_paths(self.graph, source, target)
                             )
-                            all_paths.extend(paths)
                             path_lengths.extend([len(p) - 1 for p in paths])
                         except nx.NetworkXNoPath:
                             pass

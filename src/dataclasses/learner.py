@@ -146,7 +146,7 @@ class LearnerModel:
 
         print("\nMastery After Sprint:")
         for lesson_id, mastery in log.mastery_after.items():
-            print(f"  - {lessons[lesson_id].name} (ID: {lesson_id}): {mastery}%")
+            print(f"  - {lessons[lesson_id].name} (ID: {lesson_id}): {mastery}")
 
         print("=" * 40)
         print()

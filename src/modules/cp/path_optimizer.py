@@ -189,7 +189,7 @@ class LearningPathOptimizer:
             self.solver = cp_model.CpSolver()
             self.solver.parameters.max_time_in_seconds = 600
             self.solver.parameters.search_branching = cp_model.FIXED_SEARCH
-            self.solver.parameters.log_search_progress = True
+            # self.solver.parameters.log_search_progress = True
 
             status = self.solver.Solve(self.model)
 
@@ -221,7 +221,7 @@ class LearningPathOptimizer:
         """
         print("🎯 Set of activities selection")
         try:
-            print("🎯 Adding constraints")
+            print("🎯 Creating variables")
             self._build_variables()
             print("🎯 Adding constraints")
             self._add_constraints()

@@ -116,7 +116,7 @@ class SprintBuilder:
             labels = kmeans.fit_predict(encoded_scaled)
 
         elif self.cluster_distance == "jaccard":
-            encoded_binary = np.array(encoded).astype(bool).astype(int)
+            encoded_binary = np.array(encoded).astype(bool)
             dist_matrix = pairwise_distances(encoded_binary, metric="jaccard")
             clustering = AgglomerativeClustering(
                 n_clusters=k, metric="precomputed", linkage="average"
